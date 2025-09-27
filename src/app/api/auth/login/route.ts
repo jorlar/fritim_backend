@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { authenticateUser } from '@/lib/auth-supabase';
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,43 +12,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Simple demo authentication
-    if (email === 'admin@fritim.no' && password === 'password123') {
-      const user = {
-        id: 1,
-        email: 'admin@fritim.no',
-        name: 'Admin User',
-        role: 'admin',
-        club_id: null
-      };
+    // Authenticate user with Supabase
+    const user = await authenticateUser(email, password);
 
-      return NextResponse.json({
-        message: 'Login successful',
-        token: 'demo-token-123',
-        user,
-      });
+    if (!user) {
+      return NextResponse.json(
+        { message: 'Invalid email or password' },
+        { status: 401 }
+      );
     }
 
-    if (email === 'club@fritim.no' && password === 'password123') {
-      const user = {
-        id: 2,
-        email: 'club@fritim.no',
-        name: 'Club Admin',
-        role: 'club_admin',
-        club_id: 1
-      };
-
-      return NextResponse.json({
-        message: 'Login successful',
-        token: 'demo-token-456',
-        user,
-      });
-    }
-
-    return NextResponse.json(
-      { message: 'Invalid email or password' },
-      { status: 401 }
-    );
+    return NextResponse.json({
+      message: 'Login successful',
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        club_id: user.club_id,
+        club: user.club
+      }
+    });
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json(
