@@ -166,7 +166,7 @@ export async function getAllUsers(): Promise<User[]> {
       return [];
     }
 
-    return profiles.map(profile => ({
+    return profiles.map((profile: any) => ({
       id: profile.id,
       email: profile.email,
       name: profile.name,
@@ -194,7 +194,7 @@ export async function getAllClubs(): Promise<Club[]> {
       return [];
     }
 
-    return clubs.map(club => ({
+    return clubs.map((club: any) => ({
       id: club.id,
       name: club.name,
       short_name: club.short_name,
@@ -284,7 +284,7 @@ export async function getAllEvents(): Promise<Event[]> {
       return [];
     }
 
-    return events.map(event => ({
+    return events.map((event: any) => ({
       id: event.id,
       club_id: event.club_id,
       club: event.clubs,
@@ -384,7 +384,7 @@ export async function getAllEquipmentListings(): Promise<EquipmentListing[]> {
       return [];
     }
 
-    return listings.map(listing => ({
+    return listings.map((listing: any) => ({
       id: listing.id,
       title: listing.title,
       description: listing.description,
@@ -429,7 +429,7 @@ export async function getAllFunds(): Promise<Fund[]> {
       return [];
     }
 
-    return funds.map(fund => ({
+    return funds.map((fund: any) => ({
       id: fund.id,
       club_id: fund.club_id,
       club: fund.clubs,
@@ -475,7 +475,7 @@ export async function getFrikjopTransactions(userId?: string): Promise<FrikjopTr
       return [];
     }
 
-    return transactions.map(transaction => ({
+    return transactions.map((transaction: any) => ({
       id: transaction.id,
       user_id: transaction.user_id,
       event_id: transaction.event_id,
