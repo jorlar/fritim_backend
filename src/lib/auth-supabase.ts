@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-import { User, Club, Event, EventResponse, EquipmentListing, Fund, FundTransaction, FrikjopTransaction } from '@/types';
+import { User, Club, Event, EventResponse, EquipmentListing, Fund, FundTransaction, FrikjopTransaction } from './types';
 
 export async function authenticateUser(email: string, password: string): Promise<User | null> {
   try {
